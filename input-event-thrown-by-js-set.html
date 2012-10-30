@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Testing "input" Event thown by a JS set</title>
+  </head>
+  <body>
+
+    <p>
+      This reduced test is designed to check browsers implementation of the
+      'input' event, as described in
+      <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-input-element-attributes.html#event-input-input">
+        the specification
+      </a>.
+      <br />
+      <strong>Instructions: </strong> click the button to change the input value
+      and observe the number of input events thrown by looking at the textarea.
+    </p>
+
+    <form>
+      <input type="text" id="test-subject" />
+      <a href="#" id="setter">Set value</button>
+      <br />
+      <textarea rows="5" cols="80" id="event-log"></textarea>
+    </form>
+
+    <script>
+      var eventCount = 0;
+      var logEvent = function() {
+        eventCount ++;
+        var logMessage = eventCount + " 'input' event emitted.";
+        document.getElementById("event-log").textContent = logMessage;
+      };
+
+      var setValue = function(e) {
+        document.getElementById("test-subject").value = "test value";
+      };
+
+      document.getElementById("test-subject").addEventListener("input", logEvent);
+      document.getElementById("setter").addEventListener("click", setValue);
+
+      document.getElementById("event-log").textContent += "Ready.";
+    </script>
+  </body>
+</html>
